@@ -2,7 +2,8 @@ import random
 import time
 
 
-class Board:
+class Dungeon:
+    """Create Dungeon object."""
     board = []
 
     def __init__(self, rows, columns):
@@ -15,7 +16,7 @@ class Board:
         print('Here is your dungeon! Look, how good it is!\n')
 
     def __repr__(self):
-        return "Dungeon of size {}x{}\n".format(self.rows, self.columns)
+        return "Board size {}x{}\n".format(self.rows, self.columns)
 
     def show(self):
         print '~' * self.columns * 2
@@ -51,30 +52,30 @@ def check_if_number(user_inp):
                                  'This are numbers ->: 123456789, in case you forgot. Type: ')
     return user_inp
 
-board_size = check_if_number(raw_input('Please create your dungeon, what size should it be? Type one number: '))
-if board_size <= 1:
+dungeon_size = check_if_number(raw_input('Please create your dungeon, what size should it be? Type one number: '))
+if dungeon_size <= 1:
     print('This is not cool size, let`s pretend you typed 10.\n')
-    board_size = 10
+    dungeon_size = 10
 
-board = Board(board_size, board_size)
+dungeon = Dungeon(dungeon_size, dungeon_size)
 
-board.add_spikes()
-board.create_treasure()
+dungeon.add_spikes()
+dungeon.create_treasure()
 
 while True:
-    user_row = check_if_number(raw_input("Please type row number from 1 to {}: ".format(board.rows)))
-    user_column = check_if_number(raw_input("Please type column number from 1 to {}: ".format(board.columns)))
-    if user_row > board.rows or user_row < 0 or user_column > board.columns or user_column < 0:
+    user_row = check_if_number(raw_input("Please type row number from 1 to {}: ".format(dungeon.rows)))
+    user_column = check_if_number(raw_input("Please type column number from 1 to {}: ".format(dungeon.columns)))
+    if user_row > dungeon.rows or user_row < 0 or user_column > dungeon.columns or user_column < 0:
         print("Please try to stay in dungeon. You need this treasure really much!\n")
         continue
 
-    if board.board[user_row - 1][user_column - 1] == "*":
+    if dungeon.board[user_row - 1][user_column - 1] == "*":
         print("You are dead buddy :(\n")
-        board.show()
+        dungeon.show()
         break
-    elif board.board[user_row - 1][user_column - 1] == "T":
+    elif dungeon.board[user_row - 1][user_column - 1] == "T":
         print("You found a T letter. You won by the way.\nBye.")
-        board.show()
+        dungeon.show()
         break
     else:
         print("Ok there is no spikes here and no treasures, keep going bro!\n")
