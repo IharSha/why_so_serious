@@ -19,6 +19,7 @@ class Dungeon:
         return "Board size {}x{}\n".format(self.rows, self.columns)
 
     def show(self):
+        """reveal the dungeon with spikes and treasure."""
         print '~' * self.columns * 2
         for row in self.board:
             print " ".join(row)
@@ -26,6 +27,7 @@ class Dungeon:
         print("The dungeon revealed!\n")
 
     def add_spikes(self):
+        """Randomly add spikes."""
         print("Adding spikes in random places... You know, for safety...")
         for row in range(self.rows):
             for column in range(self.columns):
@@ -36,6 +38,7 @@ class Dungeon:
         print("Done, now you can hurt yourself here.\n")
 
     def create_treasure(self):
+        """Randomly add treasure."""
         print("Hiding treasure... Because without treasure there is no fun at all.")
         self.board[random.randrange(self.rows)][random.randrange(self.columns)] = 'T'
         time.sleep(0.7)
@@ -44,6 +47,7 @@ class Dungeon:
 
 
 def check_if_number(user_input):
+    """Check that user's input is a number"""
     while type(user_input) != int:
         try:
             user_input = int(user_input)
@@ -65,8 +69,11 @@ dungeon.add_spikes()
 dungeon.create_treasure()
 
 while True:
+    # choose square
     user_row = check_if_number(raw_input("Please type row number from 1 to {}: ".format(dungeon.rows)))
     user_column = check_if_number(raw_input("Please type column number from 1 to {}: ".format(dungeon.columns)))
+
+    # check that selected square in the dungeon otherwise choose square again
     if user_row > dungeon.rows or user_row < 0 or user_column > dungeon.columns or user_column < 0:
         print("Please try to stay in dungeon. You need this treasure really much!\n")
         continue
