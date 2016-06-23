@@ -43,19 +43,21 @@ class Dungeon:
         print("Try to find it.\n")
 
 
-def check_if_number(user_inp):
-    while type(user_inp) != int:
+def check_if_number(user_input):
+    while type(user_input) != int:
         try:
-            user_inp = int(user_inp)
+            user_input = int(user_input)
         except ValueError:
-            user_inp = raw_input('Hm...I guess you have problems with numbers. Try one more time, remember! '
-                                 'This are numbers ->: 123456789, in case you forgot. Type: ')
-    return user_inp
+            user_input = raw_input("Hm... I guess you have problems with numbers.\n"
+                                   "Try one more time, remember! This are numbers -> 123456789, in case you forgot.\n"
+                                   "Now, type the number: ")
+    return user_input
+
 
 dungeon_size = check_if_number(raw_input('Please create your dungeon, what size should it be? Type one number: '))
 if dungeon_size <= 1:
-    print('This is not cool size, let`s pretend you typed 10.\n')
-    dungeon_size = 10
+    print('This is not cool size, let`s pretend you typed 5.\n')
+    dungeon_size = 5
 
 dungeon = Dungeon(dungeon_size, dungeon_size)
 
