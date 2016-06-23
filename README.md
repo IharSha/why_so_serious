@@ -1,4 +1,3 @@
-# why_so_serious
-Hi everyone:)
+# Hi everyone:)
 Just practising.
 Using python 2.7
