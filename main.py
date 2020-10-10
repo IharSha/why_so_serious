@@ -9,7 +9,8 @@ def check_if_number(user_input):
             user_input = int(user_input)
         except ValueError:
             user_input = input("Hm... I guess you have problems with numbers.\n"
-                               "Try one more time, remember! This are numbers -> 123456789, in case you forgot.\n"
+                               "Try one more time, remember! This are numbers -> 123456789,"
+                               " in case you forgot.\n"
                                "Now, type the number: ")
     return user_input
 
@@ -60,7 +61,7 @@ class Dungeon:
             for column in range(self.columns):
                 if random.random() < 0.3:
                     self.board[row][column] = '*'
-        time.sleep(1)
+        time.sleep(0.5)
 
         print("...Done, now you can hurt yourself here. Much fun!\n")
 
@@ -68,13 +69,16 @@ class Dungeon:
         """Randomly add treasure."""
         print("Hiding treasure... Because without treasure there is no fun at all.")
         self.board[random.randrange(self.rows)][random.randrange(self.columns)] = 'T'
-        time.sleep(1)
+        time.sleep(0.5)
 
         print("...Now, try to find it!\n")
 
+
 game_on = True
 while game_on:
-    dungeon_size = check_if_number(input("Please create your dungeon, what size should it be? Type one number: "))
+    dungeon_size = check_if_number(
+        input("Please create your dungeon, what size should it be? Type one number: ")
+    )
     print()
     if dungeon_size <= 2:
         print("This is not cool size, let`s pretend you typed 5.\n")
@@ -87,12 +91,17 @@ while game_on:
 
     while True:
         # choose square
-        user_row = check_if_number(input("Please type row number from 1 to {}: ".format(dungeon.rows)))
-        user_column = check_if_number(input("Please type column number from 1 to {}: ".format(dungeon.columns)))
+        user_row = check_if_number(
+            input(f"Please type row number from 1 to {dungeon.rows}: ")
+        )
+        user_column = check_if_number(
+            input(f"Please type column number from 1 to {dungeon.columns}: ")
+        )
         print()
 
         # check that selected square in the dungeon otherwise choose square again
-        if user_row > dungeon.rows or user_row < 0 or user_column > dungeon.columns or user_column < 0:
+        if user_row > dungeon.rows or user_row < 0 \
+                or user_column > dungeon.columns or user_column < 0:
             print("Please try to stay in dungeon. You need this treasure really much!\n")
             continue
 
@@ -103,20 +112,24 @@ while game_on:
             break
         elif dungeon.board[user_row - 1][user_column - 1] == "T":
             time.sleep(0.3)
-            print("You found a T letter. You won by the way.\nBye.")
+            print("You found a T letter. T is for Treasure.")
+            print("You won by the way. That's all I have.\nBye.")
             dungeon.reveal()
             break
+        elif dungeon.board[user_row - 1][user_column - 1] == "0":
+            time.sleep(0.3)
+            print("Didn't you check this place already? Still nothing.\n")
+            dungeon.player_map()
         else:
             time.sleep(0.3)
             print("Ok there is no spikes here and no treasures, keep going bro!\n")
             dungeon.board[user_row - 1][user_column - 1] = "0"
             dungeon.player_map()
-            continue
 
     restart = input("To start new game type any kind word or press enter to quit this EPIC GAME: ")
     print()
-    if restart:
+    if restart and restart.lower() not in ("no", "no!", "n", "stop", "bye"):
         game_on = True
     else:
         game_on = False
-        print("See you soon young adventurer! Bye!")
+        print("See you soon young adventurer! Or not! Bye!")
